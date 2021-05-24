@@ -38,7 +38,7 @@ function mustMake() { # target [dependency...]
 	[ -f "${target}" ] || return 0
 	for source in ${dependencies} ; do
 		[ -f "${source}" ] || return 1 
-		[ "${target}" -newer "${source}" ] || return 0
+		[ "${target}" -nt "${source}" ] || return 0
 	done
 	return 1
 }
@@ -71,6 +71,6 @@ function remakeSymbolsDB() {
 
 remakeMapping
 remakeSymbolsDB
-iwyu_tool -p . -- --mapping_file=iwyu.imp | fix_include --comments
+iwyu_tool -p . -- --mapping_file=iwyu.imp | fix_include --comments --noblank_lines --nosafe_headers
 
 # vi: ft=sh ts=3 :
