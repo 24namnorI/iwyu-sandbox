@@ -50,8 +50,6 @@ iwyu.imp:
 	echo ']' >> $@
 
 iwyu: find_all_symbols_db.yaml iwyu.imp
-	#iwyu -Xiwyu --no_default_mappings -Xiwyu --verbose=2 $(BODIES)
-	#iwyu_tool -p . -- --no_default_mappings --verbose=2 #| fix_include --comments --nosafe_headers
 	iwyu_tool -p . -- --mapping_file=iwyu.imp --verbose=1 | fix_include --comments
 
 %.o: %.C
